@@ -1,10 +1,16 @@
 <?php
+
 require('phpQuery/phpQuery.php');
+require('functions.php');
 
-$html = file_get_contents('http://berkat.ru/368965-terristornyi-stabilizator-naprjazhenija.html');
+$catUrl = 'http://berkat.ru/board/bytovaja-elektronika/tehnika-dlja-doma';
 
-$document = phpQuery::newDocument($html);
+// Получаем все объявления из категории "Техника для дома"
+$links = getLinks($catUrl);
 
-$asd = $document->find('head > title');
+// Преобразуем каждое объявление в JSON
+foreach ($links as $el => $url) {
+	$ad = parseAd($url);
+}
 
-die($asd);
+// ... дальше уже интегрировать
